@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 public class PingService {
@@ -22,7 +21,6 @@ public class PingService {
 
     @Transactional
     public PongResponse ping(String userId) throws BusinessException {
-        //TODO: Update if not exists
         UserEntity user = userDao.get(userId);
         long timestamp = TimeUtils.getUnixTime();
         if (user == null) {

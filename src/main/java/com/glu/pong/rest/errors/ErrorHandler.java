@@ -77,7 +77,6 @@ public class ErrorHandler implements HandlerExceptionResolver, Ordered {
         BindingResult bindingResult = e.getBindingResult();
         StringBuilder stringBuilder = new StringBuilder();
 
-        //Errors: field = {}, error = {};
         bindingResult.getAllErrors().forEach((oe) -> {
             if (oe instanceof FieldError) {
                 FieldError fieldError = (FieldError) oe;
