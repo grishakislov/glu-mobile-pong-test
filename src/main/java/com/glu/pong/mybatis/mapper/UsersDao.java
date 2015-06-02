@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.*;
 public interface UsersDao {
 
     @Select("select * from users " +
-            "where user_id = #{userId}")
+            "where user_id = #{userId} for update")
     @Results(value = {
             @Result(property = "userId", column = "user_id")})
     UserEntity get(@Param("userId") String userId);
