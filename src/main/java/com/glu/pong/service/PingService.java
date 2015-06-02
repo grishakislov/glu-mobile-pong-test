@@ -1,7 +1,5 @@
 package com.glu.pong.service;
 
-import com.glu.pong.mybatis.entity.UserEntity;
-import com.glu.pong.mybatis.mapper.UsersDao;
 import com.glu.pong.transport.BusinessException;
 import com.glu.pong.transport.PongResponse;
 import com.glu.pong.utils.TimeUtils;
@@ -14,21 +12,16 @@ import org.springframework.transaction.annotation.Transactional;
 public class PingService {
 
     @Autowired
-    private UsersDao userDao;
+    private UsersService usersService;
 
     @Autowired
     private UserHitsService userHitsService;
 
     @Transactional
     public PongResponse ping(String userId) throws BusinessException {
-        UserEntity user = userDao.get(userId);
         long timestamp = TimeUtils.getUnixTime();
-        if (user == null) {
-            user = new UserEntity();
-            user.setUserId(userId);
-            user.setTimestamp(timestamp);
-            userDao.save(user);
-        }
+
+        usersService.create(userId);
 
         long hits = userHitsService.logUserHit(userId, timestamp);
 
