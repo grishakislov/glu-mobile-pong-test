@@ -5,6 +5,8 @@ import com.glu.pong.transport.BusinessException;
 import com.glu.pong.transport.HandledRequest;
 import com.glu.pong.transport.OperationResult;
 import com.glu.pong.utils.ExceptionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,8 @@ import javax.validation.Valid;
 
 @Controller
 public class HandlerController extends AbstractBusinessController {
+
+    private static final Logger LOG = LoggerFactory.getLogger(HandlerController.class);
 
     @Autowired
     private MethodRegistry methodRegistry;
@@ -35,5 +39,10 @@ public class HandlerController extends AbstractBusinessController {
                 throw ExceptionFactory.unknownMethodExc(request.getMethod());
         }
         return null;
+    }
+
+    @Override
+    protected Logger getLogger() {
+        return LOG;
     }
 }
